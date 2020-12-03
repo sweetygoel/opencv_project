@@ -1,0 +1,23 @@
+pip install opencv-python
+import cv2,time
+
+video=cv2.VideoCapture(0)  #cv2 is a method  (it will return video from first webcam from your computer)
+first_frame=None       #None means null value
+while True:      # loop forever
+    check,frame=video.read()     # it is used to read the frame
+    #first variable frame that input take form our webcam
+    gray=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)   #convert our live image into gray scale using cvt method
+    gray=cv2.GaussianBlur(gray,(21,21),0)   #using guassian for smoothing the edges reduce the processing timeand prowe for 
+    #motin dedection (cv2 is use to convert color conversion)
+    
+    if first_frame is None:
+        first_frame=gray
+        continue   #using contiue loop strat from the starting
+    delta_frame=cv2.absdiff(first_frame,gray)  #find the absolute difference between background and current frame
+    cv2.imshow("gotchaa...",delta_frame)   # it is used to load an image (show the frame in the video)
+    key=cv2.waitKey(2)   #it is a keboard binding function used to wait for milsecond for any keyboard event
+    if key==ord("s"):
+        break
+        
+video.release()
+cv2.destroyAllWindows()
